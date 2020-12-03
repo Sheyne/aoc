@@ -29,19 +29,11 @@ fn input_generator(input: &str) -> Vec<Line> {
 }
 
 fn check_slope(input: &[Line], rise: usize, run: usize) -> usize {
-    let mut position = 0;
-    let len = input[0].squares.len();
-
-    let mut get_position = || {
-        let p = position;
-        position = (position + run) % len;
-        p
-    };
-
     input
         .iter()
         .step_by(rise)
-        .map(|line| line.squares[get_position()])
+        .enumerate()
+        .map(|(idx, line)| line.squares[idx * run % line.squares.len()])
         .filter(|x| *x == Square::Tree)
         .count()
 }
