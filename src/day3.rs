@@ -1,6 +1,6 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 enum Square {
     Empty,
     Tree,
@@ -30,17 +30,20 @@ fn input_generator(input: &str) -> Vec<Line> {
 
 fn check_slope(input: &[Line], rise: usize, run: usize) -> usize {
     let mut position = 0;
-    let mut hits = 0;
+    let len = input[0].squares.len();
 
-    for line in input.iter().step_by(rise) {
-        hits += match line.squares[position] {
-            Square::Empty => 0,
-            Square::Tree => 1,
-        };
-        position = (position + run) % line.squares.len();
-    }
+    let mut get_position = || {
+        let p = position;
+        position = (position + run) % len;
+        p
+    };
 
-    hits
+    input
+        .iter()
+        .step_by(rise)
+        .map(|line| line.squares[get_position()])
+        .filter(|x| *x == Square::Tree)
+        .count()
 }
 
 #[aoc(day3, part1)]
