@@ -31,9 +31,15 @@ fn solve_part1(input: &[String]) -> i32 {
 
 #[aoc(day5, part2)]
 fn solve_part2(input: &[String]) -> i32 {
-    let min = input.iter().map(|x| get_id(x)).min().unwrap();
-    let max = input.iter().map(|x| get_id(x)).max().unwrap();
-    let sum = input.iter().map(|x| get_id(x)).fold(0, |acc, x| acc + x);
+    let mut min = 10000;
+    let mut max = 0;
+    let mut sum = 0;
+
+    for v in input.iter().map(|x| get_id(x)) {
+        min = v.min(min);
+        max = v.max(max);
+        sum += v;
+    }
 
     (max * (max + 1)) / 2 - (min * (min - 1)) / 2 - sum
 }
