@@ -9,8 +9,12 @@ fn get_row_col(s: &str) -> (i32, i32) {
     let row = &s[..7];
     let col = &s[7..];
 
-    let row = i32::from_str_radix(&row.replace("B", "1").replace("F", "0"), 2).unwrap();
-    let col = i32::from_str_radix(&col.replace("R", "1").replace("L", "0"), 2).unwrap();
+    fn custom_from_bin(inp: &str, letter: char) -> i32 {
+        inp.chars().fold(0, |acc, num| acc * 2 + if num == letter { 1 } else { 0 })
+    }
+
+    let row = custom_from_bin(row, 'B');
+    let col = custom_from_bin(col, 'R');
 
     (row, col)
 }
