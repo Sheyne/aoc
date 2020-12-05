@@ -1,41 +1,47 @@
 use aoc_runner_derive::{aoc, aoc_generator};
 
 #[aoc_generator(day5)]
-fn input_generator(input: &str) -> Vec<String> {
-    input.lines().map(|x| x.to_owned()).collect()
+fn input_generator(input: &str) -> String {
+    input.to_owned()
 }
 
-fn get_row_col(s: &str) -> (i32, i32) {
+fn get_row_col(s: &[u8]) -> (i32, i32) {
     let row = &s[..7];
     let col = &s[7..];
 
-    fn custom_from_bin(inp: &str, letter: char) -> i32 {
-        inp.chars().fold(0, |acc, num| acc * 2 + if num == letter { 1 } else { 0 })
+    fn custom_from_bin(inp: &[u8], letter: u8) -> i32 {
+        inp.iter()
+            .fold(0, |acc, num| acc * 2 + if *num == letter { 1 } else { 0 })
     }
 
-    let row = custom_from_bin(row, 'B');
-    let col = custom_from_bin(col, 'R');
+    let row = custom_from_bin(row, b'B');
+    let col = custom_from_bin(col, b'R');
 
     (row, col)
 }
 
-fn get_id(s: &str) -> i32 {
+fn get_id(s: &[u8]) -> i32 {
     let (row, col) = get_row_col(s);
     row * 8 + col
 }
 
 #[aoc(day5, part1)]
-fn solve_part1(input: &[String]) -> i32 {
-    input.iter().map(|x| get_id(x)).max().unwrap()
+fn solve_part1(input: &str) -> i32 {
+    input
+        .as_bytes()
+        .chunks(11)
+        .map(|x| get_id(&x[..10]))
+        .max()
+        .unwrap()
 }
 
 #[aoc(day5, part2)]
-fn solve_part2(input: &[String]) -> i32 {
+fn solve_part2(input: &str) -> i32 {
     let mut min = 10000;
     let mut max = 0;
     let mut sum = 0;
 
-    for v in input.iter().map(|x| get_id(x)) {
+    for v in input.as_bytes().chunks(11).map(|x| get_id(&x[..10])) {
         min = v.min(min);
         max = v.max(max);
         sum += v;
