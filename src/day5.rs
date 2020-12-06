@@ -56,14 +56,14 @@ mod tests {
 
     #[test]
     fn part1_example1() {
-        assert_eq!(get_row_col("BFFFBBFRRR"), (70, 7));
+        assert_eq!(get_row_col(b"BFFFBBFRRR"), (70, 7));
     }
     #[test]
     fn part1_example2() {
-        assert_eq!(get_row_col("FFFBBBFRRR"), (14, 7));
+        assert_eq!(get_row_col(b"FFFBBBFRRR"), (14, 7));
     }
     #[test]
     fn part1_example3() {
-        assert_eq!(get_row_col("BBFFBBFRLL"), (102, 4));
+        assert_eq!(get_row_col(b"BBFFBBFRLL"), (102, 4));
     }
 }
