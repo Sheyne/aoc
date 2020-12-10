@@ -37,7 +37,7 @@ fn solve_part2(input: &[i32]) -> u64 {
     let mut input: Vec<u64> = [0].iter().chain(input.iter()).map(|x| *x as u64).collect();
     input.sort();
 
-    let mut cache = vec![Option::<u64>::None; input.len()];
+    let mut cache = vec![None; input.len()];
 
     cache[input.len() - 1] = Some(1);
 
