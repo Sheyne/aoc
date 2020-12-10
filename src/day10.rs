@@ -37,20 +37,23 @@ fn solve_part2(input: &[i32]) -> u64 {
     let mut input: Vec<u64> = [0].iter().chain(input.iter()).map(|x| *x as u64).collect();
     input.sort();
 
-    fn valid_arrangements(list: &[u64]) -> u64 {
-        if list.len() <= 2 {
-            1
-        } else {
-            let first = list[0];
-            let second = list[1];
-            let third = list[2];
-            
+    let mut cache = vec![Option::<u64>::None; input.len()];
 
-            ...1, 2, 3...
-        }
+    cache[input.len() - 1] = Some(1);
+
+    for (idx, num) in input.iter().enumerate().rev().skip(1) {
+        let num_options: u64 = input
+            .iter()
+            .zip(&cache)
+            .skip(idx + 1)
+            .take_while(|(x, _)| **x <= num + 3)
+            .map(|(_, cached)| cached.unwrap())
+            .sum();
+
+        cache[idx] = Some(num_options);
     }
 
-    input[0]
+    cache[0].unwrap()
 }
 
 #[cfg(test)]
