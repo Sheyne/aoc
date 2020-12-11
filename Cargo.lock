@@ -7,6 +7,7 @@ dependencies = [
  "aoc-runner",
  "aoc-runner-derive",
  "nom",
+ "vec2d",
 ]
 
 [[package]]
@@ -197,6 +198,12 @@ name = "unicode-xid"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7fe0bb3479651439c9112f72b6c505038574c9fbb575ed1bf3b797fa39dd564"
+
+[[package]]
+name = "vec2d"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8078d1a3c44555d2bd923cf7a5096d3467edc37b4e17d594fc1ac7b6debee425"
 
 [[package]]
 name = "version_check"
